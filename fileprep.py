@@ -15,7 +15,7 @@ import string
 from pickle import dump
 from unicodedata import normalize
 
-import pandas as pd
+# import pandas as pd
 from numpy import array
 
 
@@ -26,11 +26,11 @@ def load_file(filename):
     file.close()
     return text
 
-# Save text onto new csv file.
-# me using pandas to do this :P
-def save_file(text_list, filename, path):
-    df = pd.DataFrame(text_list)
-    df.to_csv(path + f'{filename}.csv', index=False, header=False)
+# # Save text onto new csv file.
+# # me using pandas to do this :P
+# def save_file(text_list, filename, path):
+#     df = pd.DataFrame(text_list)
+#     df.to_csv(path + f'{filename}.csv', index=False, header=False)
 
 # Split language pairs based on tab delimiter and remove CC credits.
 def split_pairs(text):
@@ -39,7 +39,7 @@ def split_pairs(text):
     return pairs
 
 # Make the actual csv file(s).
-def make_csv(langs=['cmn', 'fra', 'ita', 'rus', 'spa', 'vie', 'tel', 'kor', 'jpn']):
+def make_csv(langs=['cmn', 'fra', 'ita', 'rus', 'spa', 'vie', 'kor', 'jpn']):
     for lang in list(langs):
         save_file(split_pairs(
             load_file(data_path + f'{lang}.txt')), f'{lang}', data_path)
@@ -89,15 +89,14 @@ def clean_dupes(lines):
     return array(no_dupes_list)
 
 # mmm pickles
-def pickle_data(pairs, filename):
-    dump(pairs, open(filename, 'wb'))
+def pickle_data(data, filename):
+    dump(data, open(filename, 'wb'))
     print(f'Pickled: {filename}')
 
-# Make the actual csv file(s).
+# Put it all together
 def make_pairs(lang):
-    return clean_pairs(split_pairs(load_file(data_path + f'{lang}.txt')))
+    return clean_dupes(clean_pairs(split_pairs(load_file(data_path + f'{lang}.txt'))))
 
 
-pairs = make_pairs('cmn')[:10]
-print(pairs)
-print(clean_dupes(pairs))
+data = make_pairs('ita')
+pickle_data(data, 'ita.pkl')
