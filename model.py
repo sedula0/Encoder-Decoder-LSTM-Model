@@ -12,11 +12,12 @@ from keras.layers import LSTM, Dense, Embedding, RepeatVector, TimeDistributed
 from keras.models import Sequential
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer
-from keras.utils import to_categorical
 from keras.utils.vis_utils import plot_model
 from numpy import array
 from numpy.random import rand, shuffle
 
+# Relative paths
+pickled_data_path = 'data/'
 
 # load a clean dataset
 def load_clean_sentences(filename):
@@ -28,18 +29,20 @@ def save_clean_data(sentences, filename):
     print('Saved: %s' % filename)
 
 
-# load dataset
-raw_dataset = load_clean_sentences('ita.pkl')
+# Load dataset
+raw_dataset = load_clean_sentences(pickled_data_path + 'ita.pkl')
 
-# reduce dataset size
+# Reduce dataset size and set train/test split size
 n_sentences = 10000
-training_split = n_sentences * 0.9
+training_split = int(n_sentences * 0.9)
 dataset = raw_dataset[:n_sentences, :]
-# random shuffle
+# Random shuffle
 shuffle(dataset)
-# split into train/test
+# Split into train/test
 train, test = dataset[:training_split], dataset[training_split:]
-# save
-save_clean_data(dataset, 'ita-shuffled.pkl')
-save_clean_data(train, 'ita-train.pkl')
-save_clean_data(test, 'ita-test.pkl')
+# Save
+save_clean_data(dataset, pickled_data_path + 'ita-shuffled.pkl')
+save_clean_data(train, pickled_data_path + 'ita-train.pkl')
+save_clean_data(test, pickled_data_path + 'ita-test.pkl')
+
+# Initialize seq2seq model

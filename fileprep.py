@@ -46,7 +46,8 @@ def make_csv(langs=['cmn', 'fra', 'ita', 'rus', 'spa', 'vie', 'kor', 'jpn']):
 
 
 # Store relative paths
-data_path = 'data/'
+raw_data_path = 'raw_data/'
+pickled_data_path = 'data/'
 
 # Data Cleaning WOOHOO
 
@@ -95,8 +96,8 @@ def pickle_data(data, filename):
 
 # Put it all together
 def make_pairs(lang):
-    return clean_dupes(clean_pairs(split_pairs(load_file(data_path + f'{lang}.txt'))))
+    return clean_dupes(clean_pairs(split_pairs(load_file(raw_data_path + f'{lang}.txt'))))
 
 
 data = make_pairs('ita')
-pickle_data(data, 'ita.pkl')
+pickle_data(data, pickled_data_path + 'ita.pkl')
