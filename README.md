@@ -20,8 +20,6 @@ The model is trained on a parallel corpus of source and target language sentence
 
 The architecture consists of an Encoder and a Decoder, both utilizing LSTM cells. The Encoder processes the input sequence and produces a fixed-size context vector. The Decoder then generates the output sequence based on this context vector.
 
-![Encoder-Decoder Architecture](images/encoder_decoder_architecture.png)
-
 ## Training
 
 To train the model, run the following command:
