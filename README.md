@@ -50,14 +50,6 @@ Evaluate the performance of the model using appropriate metrics. You can use the
 python evaluate.py --model_path path/to/model --data_path path/to/test_dataset
 ```
 
-## Results
-
-Include any relevant results and metrics obtained during training and evaluation in this section.
-
-## Acknowledgments
-
-Give credit to any third-party libraries or resources used in this project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
